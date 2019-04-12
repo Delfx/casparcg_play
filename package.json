@@ -1,0 +1,15 @@
+{
+  "name": "casparcg_play",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "casparcg-connection": "^4.7.0",
+    "tslib": "^1.9.3"
+  }
+}
