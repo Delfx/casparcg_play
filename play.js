@@ -1,32 +1,38 @@
 const {CasparCG} = require("casparcg-connection");
 
-var connection = new CasparCG();
+let connection = new CasparCG();
 
-connection.play(1,1, "second");
+connection.play(1,1, "first");
 
 (async () => {
-
     const playinfo = await connection.info(1,1);
-    // console.log(JSON.stringify(playinfo.response.data[0].name));
-    // console.log(JSON.stringify(playinfo.info(1,1)));
+    connection.play(1,1, "first");
+    let timefirst = playinfo.response.data.stage.layer.layer_1.foreground.file.time[0];
+    let timesecond = playinfo.response.data.stage.layer.layer_1.foreground.file.time[1];
 
-    console.log(JSON.stringify(playinfo.response.data.stage.layer.layer_1.foreground.file.time));
-    // console.log(playinfo.response.data.stage.layer.layer_1.foreground.file.time);
-    console.log(playinfo.response.data.stage);
+    // console.log(timefirst);
 
 
-    function testNum(a) {
-        if (a > 0) {
-            return "positive";
-        } else {
-            return "NOT positive";
-        }
-    }
+    // for (let i = playinfo.response.data.stage.layer.layer_1.foreground.file.time[1]; i === playinfo.response.data.stage.layer.layer_1.foreground.file.time[0]; i++) {
+    //     console.log(timefirst);
+    // }
 
-    for (let o of playinfo.response.data) {
-        // console.log(o.name);
-        connection.play(1,1, o.name)
 
+
+
+    // for (let o of playinfo.response.data.stage.layer.layer_1.foreground.file.time) {
+    //     // console.log(o.name);
+    //     console.log(o = playinfo.response.data.stage.layer.layer_1.foreground.file.time[1]);
+    //
+    //     break;
+    // }
+    //
+
+    while (timefirst < timesecond ){
+            console.log(timefirst)
+            //logic
     }
 
 })();
+
+
