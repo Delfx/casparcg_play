@@ -6,11 +6,11 @@ connection.play(1,1, "first");
 
 (async () => {
     const playinfo = await connection.info(1,1);
-    connection.play(1,1, "first");
+
     let timefirst = playinfo.response.data.stage.layer.layer_1.foreground.file.time[0];
     let timesecond = playinfo.response.data.stage.layer.layer_1.foreground.file.time[1];
 
-    // console.log(timefirst);
+    console.log(timefirst);
 
 
     // for (let i = playinfo.response.data.stage.layer.layer_1.foreground.file.time[1]; i === playinfo.response.data.stage.layer.layer_1.foreground.file.time[0]; i++) {
@@ -29,10 +29,10 @@ connection.play(1,1, "first");
     //
 
     while (timefirst < timesecond ){
-            console.log(timefirst)
-            //logic
+            console.log(playinfo.response.data.stage.layer.layer_1.foreground.file.time[0])
     }
 
 })();
+
 
 
