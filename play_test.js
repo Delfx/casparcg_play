@@ -3,46 +3,37 @@ const {CasparCG} = require("casparcg-connection");
 let connection = new CasparCG();
 
 
-connection.play(1, 1, "pirmas");
+(async () => {
 
+    const playfile = await connection;
+    const playfileinfo = await connection.thumbnailList();
+    // console.log(playfileinfo.response.data[0]);
 
-const broadcasting = async () => {
-    // connection.play(1, 1, "first");
-    await new Promise((resolve) => setTimeout(() => {
-        resolve();
-    }, 300));
-    const playinfo = await connection.info(1, 1);
-    const fileInfo = await playinfo.response.data.stage.layer.layer_1.foreground.file;
-    console.log(fileInfo);
+    for (const o of playfileinfo.response.data) {
+        playfile.play(1, 1, o.name);
 
-    let timefirst = fileInfo.time[0];
-    let timesecond = fileInfo.time[1];
+        await new Promise((resolve) => setTimeout(() => {
+            resolve();
+        }, 300));
 
-    // setTimeout
-    // setInterval
+        const playinfo = await connection.info(1, 1);
+        const fileInfo = await playinfo.response.data.stage.layer.layer_1.foreground.file;
+        let timesecond = fileInfo.time[1];
+        let timefirst = fileInfo.time[0];
 
-    // clearTimeout
-    // clearInterval
+        const intervalId = setInterval(async () => {
+            const playinfo2 = await connection.info(1, 1);
+            timefirst = playinfo2.response.data.stage.layer.layer_1.foreground.file.time[0];
+            console.log(playinfo2.response.data.stage.layer.layer_1.foreground.file.time[0], timesecond);
+        }, 300);
 
-    const intervalId = setInterval(async () => {
-        const lastnumber = timesecond - timefirst;
-        if (lastnumber < 0.5) {
-            clearTimeout(intervalId);
-            console.log('-- ISGROJO');
-            // connection.play(1, 1, "antras");
-            return;
-        }
+        await new Promise((resolve) => setTimeout(() => {
+            resolve();
+        }, ((timesecond * 1000) + 1)));
 
-        const playinfo2 = await connection.info(1, 1);
-        timefirst = playinfo2.response.data.stage.layer.layer_1.foreground.file.time[0];
-        console.log(playinfo2.response.data.stage.layer.layer_1.foreground.file.time[0], timesecond);
-    }, 300);
+        console.log('-- ISGROJO' + " " + o.name);
+    }
+    connection.stop(1, 1);
+    console.log("Pabaiga");
 
-
-
-};
-
-broadcasting();
-
-
-
+})();
