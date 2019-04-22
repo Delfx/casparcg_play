@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "casparcg-connection": "^4.7.0",
+    "decimal.js-light": "^2.5.0",
     "tslib": "^1.9.3"
   }
 }

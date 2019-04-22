@@ -7,6 +7,9 @@ let connection = new CasparCG();
 })();
 
 
+
+
+
 const broadcasting = async () => {
     const playinfo = await connection.info(1, 1);
 
@@ -15,7 +18,7 @@ const broadcasting = async () => {
     console.log(fileInfo);
 
     if (!fileInfo) {
-        connection.play(1, 1, "pirmas");
+        broadcasting();
     }
 
     let timefirst = fileInfo.time[0];
