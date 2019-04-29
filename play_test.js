@@ -2,20 +2,34 @@ const {CasparCG} = require("casparcg-connection");
 
 let connection = new CasparCG();
 
-
-const playallfiles = async () => {
-
+(async () => {
+    // ciklas
+    // await broadcasting()
     const playfileinfo = await connection.thumbnailList();
 
     for (const o of playfileinfo.response.data) {
-        connection.play(1, 1, o.name);
+        await playallfiles(o);
+    }
 
-        await new Promise((resolve) => setTimeout(() => {
+
+    await connection.stop(1, 1);
+    await connection.disconnect();
+
+    console.log("Pabaiga");
+})();
+
+
+
+const playallfiles = async o => {
+
+        await connection.play(1, 1, o.name);
+
+        await new Promise(resolve => setTimeout(() => {
             resolve();
-        }, (300)));
+        }, 300));
 
         const playinfo = await connection.info(1, 1);
-        const fileInfo = await playinfo.response.data.stage.layer.layer_1.foreground.file;
+        const fileInfo = playinfo.response.data.stage.layer.layer_1.foreground.file;
 
         let timesecond = fileInfo.time[1];
         let timefirst = fileInfo.time[0];
@@ -31,15 +45,7 @@ const playallfiles = async () => {
         }, ((timesecond * 1000))+ 300));
 
         console.log('-- ISGROJO' + " " + o.name);
-        clearTimeout(intervalId);
+        // clearTimeout(intervalId);
+        clearInterval(intervalId);
     }
-
-
-    connection.stop(1, 1);
-    console.log("Pabaiga");
-    process.exit(0);
-
-
 };
-
-playallfiles();

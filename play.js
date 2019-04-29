@@ -3,6 +3,10 @@ const {CasparCG} = require("casparcg-connection");
 let connection = new CasparCG();
 
 (async () => {
+    // ciklas
+        // await broadcasting()
+
+
     await connection.play(1, 1, "pirmas");
 })();
 
@@ -17,7 +21,7 @@ const broadcasting = async () => {
 
     console.log(fileInfo);
 
-    if (!fileInfo) {
+    if (!fileInfo || !('time' in fileInfo)) {
         broadcasting();
     }
 
@@ -25,7 +29,7 @@ const broadcasting = async () => {
     let timesecond = fileInfo.time[1];
 
     if (timesecond === 0) {
-        connection.play(1, 1, "pirmas");
+       broadcasting();
     }
 
 
